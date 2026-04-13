@@ -1,37 +1,38 @@
-# 项目特定知识（Project Context）
+# context/project/readme.md
+## 项目特定知识（Project Specific Context）
 
-## 项目名称
-wisdom-modules-car（车辆管理模块）
+### 项目名称
+**wisdom-modules-car** —— 车辆管理核心模块
 
-## 核心业务范围
-- 车辆基础信息管理（CarInfo）
-- 车辆类型树形管理（CarType）
-- 年检、保险管理
-- 加油管理（CarRefuel + OilCard + OilCardRecord）
+### 业务范围
+- 车辆基础信息（CarInfo）
+- 车辆类型树形结构（CarType）
+- 年检管理（CarAnnualInspection）
+- 保险管理（CarInsurance）
+- 加油记录（CarRefuel）
 - 维修管理（CarRepair + CarRepairAccessories）
-- 油卡充值/扣款及变动记录
+- 油卡管理与充值/扣款（OilCard + OilCardRecord）
 - 电子路单（ElectronicWaybill）
 
-## 代码生成标准规约（核心参照）
+### 代码生成标准规约（强制参照）
+详见 **AGENTS.md** 中的「项目代码生成标准规约（车辆管理模块）」章节，以及 `context/project/car-standard.md`（后续会单独拆出更详细版本）。
 
-详见 **AGENTS.md** 主文件中的「项目代码生成标准规约（车辆管理模块）」章节。
+**关键强制点**（AI生成新代码时必须100%遵守）：
+- 实体类必须继承 `BatisPlusBase` 并定义内部 `FieldEnum implements FieldEnumCommonDB`
+- 业务逻辑统一写在 `XXXVDService` 类中，严格遵循现有 add/update/pageByCond/delById 模板
+- 对象转换必须使用 `CarBeanMapperConvert`
+- 多车牌、多责任人、多设备绑定统一使用逗号分隔字符串 + 转换工具方法
+- 必须添加部门数据权限过滤
+- 事务操作（充值、扣款等）必须使用 `@Transactional`
 
-关键强制要求（生成新代码时必须遵守）：
-- 实体继承 `BatisPlusBase` 并定义 `FieldEnum`
-- 请求VO 支持 Add/Update 分组校验 + `@JsonView`
-- 业务逻辑写在 `XXXVDService` 中，遵循现有 CRUD + 分页模板
-- 对象转换必须通过 `CarBeanMapperConvert`
-- 添加部门数据权限过滤
-- 同一天查询时处理时间范围（00:00:00 ~ 23:59:59.999）
-- 多车牌/多设备绑定使用逗号分隔字符串 + 转换工具方法
+### 当前技术决策记录
+- 采用 dto / service / server 三层 Maven 多模块结构
+- 配置中心使用 Nacos + 多环境 bootstrap-*.yaml
+- 数据源统一标注 `@DS("master")`
+- 树形查询（车辆类型）使用 CTE 递归
+- 油卡变动必须同步写入 OilCardRecord
 
-## 当前模块技术决策
-- 多模块 Maven 结构（dto / service / server）
-- Nacos 配置中心 + 多环境 bootstrap
-- MyBatis-Plus + 动态数据源 `@DS("master")`
-- Sa-Token + 自定义权限工具
-- MapStruct 统一转换
-
-## 待补充知识
-- 更多业务规则（后续从 requirements/ 提炼）
-- 踩坑记录（例如油卡扣款事务、电子路单状态流转等）
+### 待补充内容
+- 更多业务规则提炼（从 requirements/ 中沉淀）
+- 电子路单状态流转细节
+- 维修配件与采购流程联动规范

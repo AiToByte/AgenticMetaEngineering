@@ -25,21 +25,21 @@
 ## 3. 包结构与命名规范
 
 **dto 模块**：
-```
+```java
 com.wisdom.modules.cardb.domain.*          // 实体类（继承 BatisPlusBase）
 com.wisdom.modules.cardb.vo.request.*      // ReqVo（按业务子模块分包）
 com.wisdom.modules.cardb.vo.response.*     // RespVo
 ```
 
 **service 模块**：
-```
+```java
 com.wisdom.modules.cardb.dao.*             // xxxDao extends BaseMapper
 com.wisdom.modules.cardb.service.*         // 接口
 com.wisdom.modules.cardb.service.impl.*    // 实现类（带 @DS("master")）
 ```
 
 **server 模块**：
-```
+```java
 com.wisdom.modules.car.controller.*        // Controller
 com.wisdom.modules.car.service.*VDService  // 视图服务（核心业务逻辑）
 com.wisdom.modules.car.util.*              // 工具类、常量、转换器
@@ -94,12 +94,7 @@ public class CarXXX extends BatisPlusBase {
 @Data
 @SuperBuilder   // 或 @Builder
 public class XXXReqVo {
-    public interface Add {}
-    public interface Update {}
-    public interface XXXExtra {}
-
-    @Schema(...)
-    @JsonView({Update.class})
+    
     @NotBlank(groups = {Update.class})
     private String id;
 
