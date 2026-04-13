@@ -11,7 +11,8 @@
 ### 1. 模块架构与分层规范（必须严格遵守）
 
 项目采用 **Maven 多模块结构**：
-
+- [`AGENTS.md`](../../AGENTS.md) 中的**通用规约**（所有服务共性）
+- 本文件中的**车辆服务特有规则**
 - `wisdom-modules-car-dto`：实体 Domain + 请求VO + 响应VO
 - `wisdom-modules-car-service`：DAO 接口、Service 接口、ServiceImpl、Mapper.xml
 - `wisdom-modules-car-server`：Controller、VDService（核心业务服务）、工具类、配置、启动类
