@@ -1,6 +1,6 @@
 # CAR-STANDARAD
 
-## 车辆管理模块 (wisdom-modules-car) 代码生成标准规约
+## 车辆管理模块 (wisdom-modules-car) 标准规约
 
 **版本**：v1.0  
 **更新日期**：2026-04-13  
@@ -274,8 +274,8 @@ public interface CarBeanMapperConvert {
 ### 7. 其他共性规范
 
 多值绑定（车牌、责任人、设备）：使用逗号分隔字符串，统一通过工具方法转换
-油卡操作：充值/扣款必须同时写入 OilCardRecord，状态常量使用 OilCardRecordConst
+油卡操作：充值/扣款必须同时写入 `OilCardRecord`，状态常量使用 `OilCardRecordConst`
 树形结构（车辆类型）：使用 CTE 递归查询
-导出导入：统一使用 EasyExcelUtil
-常量类：放在 com.wisdom.modules.car.util 下，如 OilCardRecordConst.java
-配置：多环境使用 bootstrap-*.yaml，统一通过 Nacos
+导出导入：统一使用 `EasyExcelUtil`
+常量类：放在 `com.wisdom.modules.car.util` 下，如 `OilCardRecordConst.java`
+配置：多环境使用 `bootstrap-*.yaml`，统一通过 `Nacos`
